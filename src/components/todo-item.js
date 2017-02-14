@@ -20,12 +20,13 @@ export default class TodoItem extends Component{
         return (
             <td>
             <button onClick={this.onEditClick.bind(this)}>Edit</button>
-            <button>Delete</button>
+            <button onClick={this.props.deleteTask.bind(this, this.props.todo)}>Delete</button>
             </td>
         );
     }
     onSaveClick(event){
         event.preventDefault();
+        console.log('trying to save....')
         const oldTask = this.props.todo;
         const newTask = this.refs.editInput.value;
         this.props.saveTask(oldTask, newTask);
@@ -33,6 +34,9 @@ export default class TodoItem extends Component{
             isEditing: false
         })
     }
+    // onDeleteClick(){
+    //     this.props.deleteTask(this.props.todo)
+    // }
 
     onEditClick(){
         this.setState({

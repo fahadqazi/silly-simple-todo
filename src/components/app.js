@@ -20,6 +20,7 @@ export default class App extends Component{
         }
     }
     createTask(task){
+
         this.state.todos.push({
             task,
             isCompleted: false
@@ -43,12 +44,14 @@ export default class App extends Component{
         })
     }
     saveTask(oldTask, newTask){
+        console.log(oldTask);
+        console.log(newTask);
         this.setState({
             todos: this.state.todos.map((todo) => {
-                if(todo.task === oldTask){
+                if(todo.task === oldTask.task){
                     return Object.assign({}, todo, {
-                        task: newTask.task,
-                        isCompleted: newTask.isCompleted
+                        task: newTask,
+                        isCompleted: false
                     });
                 }else{
                     return todo
@@ -56,15 +59,26 @@ export default class App extends Component{
             })
         })
     }
+    deleteTask(taskToDelete){
+        this.setState({
+            todos: this.state.todos.filter((todo) => {
+                return todo.task !== taskToDelete.task
+            })
+        })
+    }
     render(){
         return(
             <div>
                 <h1>React ToDos</h1>
-                <CreateTodo createTask={this.createTask.bind(this)}/>
+                <CreateTodo 
+                    createTask={this.createTask.bind(this)}
+                    todos={this.state.todos}
+                />
                 <TodosList 
-                todos={this.state.todos} 
-                toggleTask={this.toggleTask.bind(this)}
-                saveTask={this.saveTask.bind(this)}
+                    todos={this.state.todos} 
+                    toggleTask={this.toggleTask.bind(this)}
+                    saveTask={this.saveTask.bind(this)}
+                    deleteTask={this.deleteTask.bind(this)}
                 />
             </div>
         );

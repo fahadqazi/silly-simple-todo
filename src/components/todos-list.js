@@ -10,12 +10,13 @@ export default class TodosList extends Component{
     // }
 
     render(){
-        const todoItems = this.props.todos.map((todo) => {
+        const todoItems = this.props.todos.map((todo, index) => {
             return <TodoItem 
-                    key={todo.task} 
+                    key={index} 
                     todo={todo} 
                     toggleTask={this.props.toggleTask.bind(this)}
                     saveTask={this.props.saveTask.bind(this)}
+                    deleteTask={this.props.deleteTask.bind(this)}
                     />
         })
         return(
